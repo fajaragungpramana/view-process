@@ -56,6 +56,8 @@ viewProcess.stop
 
 ## Preview
 I'am sorry GIF preview is not smooth. The original on Android is smooth, thank you.
+</br>
+</br>
 <a href="url"><img src="https://github.com/fajaragungpramana/assets/blob/master/ViewProcess/GIF-210128_221155.gif" align="left" height="640" width="320" ></a>
 </br>
 </br>
