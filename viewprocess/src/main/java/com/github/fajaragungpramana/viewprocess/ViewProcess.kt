@@ -31,7 +31,7 @@ class ViewProcess @JvmOverloads constructor(
 
     private lateinit var mFocusListener: FocusListener
 
-    val start: Boolean
+    val start: Unit
         get() {
             visibility = View.VISIBLE
 
@@ -52,7 +52,7 @@ class ViewProcess @JvmOverloads constructor(
 
             })
 
-            return true
+            return
         }
 
     val stop: Unit
