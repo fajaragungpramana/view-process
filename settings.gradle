@@ -1,0 +1,3 @@
+include ':viewprocess'
+include ':app'
+rootProject.name = "ViewProcess"
