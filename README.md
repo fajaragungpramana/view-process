@@ -19,7 +19,7 @@ allProjects {
 Add the dependency:
 ```gradle
 dependencies {
-	implementation 'com.github.fajaragungpramana:view-process:0.0.3'
+	implementation 'com.github.fajaragungpramana:view-process:0.0.4'
 }
 ```
 
@@ -27,21 +27,12 @@ dependencies {
 Define a view in your layout file:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <com.github.fajaragungpramana.viewprocess.ViewProcess
+<com.github.fajaragungpramana.viewprocess.ViewProcess
         android:id="@+id/view_process"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        app:color="#EBEBEB" />
-
-</LinearLayout>
+        app:viewProcessColor="#EBEBEB"
+	app:viewProcessRadius="0dp" />
 ```
 
 To start view process.
@@ -58,7 +49,7 @@ viewProcess.stop
 I'am sorry GIF preview is not smooth. The original on Android is smooth, thank you.
 </br>
 </br>
-<a href="url"><img src="https://github.com/fajaragungpramana/assets/blob/master/ViewProcess/GIF-210128_221155.gif" align="left" height="640" width="320" ></a>
+<a href="url"><img src="https://github.com/fajaragungpramana/assets/blob/master/ViewProcess/ViewProcess.gif" align="left" height="640" width="320" ></a>
 </br>
 </br>
 </br>
@@ -91,8 +82,8 @@ I'am sorry GIF preview is not smooth. The original on Android is smooth, thank y
 Attribute for ViewProcess
 | Attribute Name | Default Value | Description |
 |----------------|---------------|-------------|
-| color | #EBEBEB | Set background color view process |
-| radius | null | Set corner radius view process |
+| viewProcessColor | #EBEBEB | Set background color view process |
+| viewProcessRadius | null | Set corner radius view process |
 
 ## License
 Copyright 2021 Fajar Agung Pramana
