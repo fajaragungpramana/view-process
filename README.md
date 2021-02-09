@@ -19,7 +19,7 @@ allProjects {
 Add the dependency:
 ```gradle
 dependencies {
-	implementation 'com.github.fajaragungpramana:view-process:0.0.2'
+	implementation 'com.github.fajaragungpramana:view-process:0.0.3'
 }
 ```
 
