@@ -2,8 +2,8 @@
 <resources>
 
     <declare-styleable name="ViewProcess">
-        <attr name="color" format="color|reference" />
-        <attr name="radius" format="dimension|reference" />
+        <attr name="viewProcessColor" format="color|reference" />
+        <attr name="viewProcessRadius" format="dimension|reference" />
     </declare-styleable>
 
 </resources>
