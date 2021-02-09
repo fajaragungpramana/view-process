@@ -1,112 +1,69 @@
 package com.github.fajaragungpramana.viewprocess
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
-import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
-import androidx.core.graphics.drawable.DrawableCompat
+import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat
 
-class ViewProcess @JvmOverloads constructor(
-    ctx: Context,
-    attrs: AttributeSet?,
-    defStyle: Int = 0,
-    defStyleRes: Int = 0
-) : LinearLayout(ctx, attrs, defStyle, defStyleRes) {
+class ViewProcess(context: Context, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
 
-    private var mView: View? = null
-        set(value) {
-            field = value
+    private val mPlat: View
+        get() {
+            field.background = ContextCompat.getDrawable(context, R.drawable.bg_plat)
 
-            field.let {
-                mViewProcess = findViewById(R.id.cv_view_process)
-                mViewAnimate = findViewById(R.id.v_view_animate)
-            }
+            return field
         }
 
-    private lateinit var mViewProcess: CardView
-    private lateinit var mViewAnimate: View
+    private val viewProcessColor: Int
 
-    private lateinit var mFocusListener: FocusListener
+    private val viewProcessRadius: Float
 
     val start: Unit
         get() {
-            visibility = View.VISIBLE
+            removeView(mPlat)
+            addView(mPlat, (40 * width) / 100, LayoutParams.MATCH_PARENT)
 
-            setFocusListener(object : FocusListener {
+            mPlat.let {
+                it.translationX = 0F - width
+                it.scaleY = height * 2F
+                it.rotation = 40F
+            }
 
-                override fun onWindowFocus(width: Float) {
-                    mViewAnimate.let {
-                        it.translationX = 0F - width
-                        it.animate()
-                            .translationX(width * 2)
-                            .setDuration(800)
-                            .setUpdateListener {  valueAnimator ->
-                                valueAnimator.repeatCount = Animation.INFINITE
-                            }
-                            .start()
-                    }
-                }
-
-            })
-
-            return
+            mPlat.animate()
+                .translationX(width * 2F)
+                .setDuration(700)
+                .setUpdateListener { it.repeatCount = Animation.INFINITE }
+                .start()
         }
 
     val stop: Unit
         get() {
-            visibility = View.GONE
-            mViewAnimate.animate().setUpdateListener { it.repeatCount = Animation.RESTART }
+            removeView(mPlat)
 
-            return
-        }
-
-    var color: Int = 0
-        set(value) {
-            field = value
-
-            if (field != 0) DrawableCompat.setTint(mViewProcess.background, field)
-        }
-
-    var radius: Float = 0F
-        set(value) {
-            field = value
-
-            if (field != 0F) mViewProcess.radius = field / 2F
+            mPlat.translationX = 0F - width
+            mPlat.animate().cancel()
         }
 
     init {
-        mView = LayoutInflater.from(ctx).inflate(R.layout.view_process, this, true)
+        mPlat = View(context)
 
-        val ta = ctx.obtainStyledAttributes(attrs, R.styleable.ViewProcess, defStyle, defStyleRes)
-        ta.let {
-            color = it.getColor(R.styleable.ViewProcess_color, 0)
-            radius = it.getDimension(R.styleable.ViewProcess_radius, 0F)
-        }
+        context.obtainStyledAttributes(attrs, R.styleable.ViewProcess).also {
+            viewProcessColor = it.getColor(R.styleable.ViewProcess_viewProcessColor, Color.parseColor("#EBEBEB"))
+            viewProcessRadius = it.getDimension(R.styleable.ViewProcess_viewProcessRadius, 0F)
+        }.recycle()
 
-        ta.recycle()
-    }
-
-    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
-        super.onWindowFocusChanged(hasWindowFocus)
-
-        mViewAnimate.let {
-            it.layoutParams.let { param ->
-                param.width = (50 * width) / 100
-                param.height = height * 2
+        View(context).also {
+            it.background = ContextCompat.getDrawable(context, R.drawable.bg_main)
+            (it.background as GradientDrawable).let { bg ->
+                bg.setColor(viewProcessColor)
+                bg.cornerRadius = viewProcessRadius
             }
-            it.translationY = -((50F * height) / 100F)
-            it.rotation = 30F
-            it.requestLayout()
+            addView(it)
         }
-
-        mFocusListener.onWindowFocus(width.toFloat())
-    }
-
-    private fun setFocusListener(focusListener: FocusListener) {
-        mFocusListener = focusListener
     }
 
 }
